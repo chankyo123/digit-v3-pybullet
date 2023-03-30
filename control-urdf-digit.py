@@ -11,6 +11,7 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 p.setGravity(0,0,-9.8)
 p.setRealTimeSimulation(0)
+p.setTimeStep(0.0005)
 # Load assets
 p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
 targid = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
@@ -20,10 +21,8 @@ jntIdx=[i for i in range(p.getNumJoints(targid))]
 initCond=[0.361490,0.000770, 0.286025,0.373352, 0, -0.346032,0.091354, -0.013601,-0.1506, 1.0922, 0.0017, -0.1391,0,-0.360407, -0.000561, -0.286076,-0.372723, 0, 0.347843,-0.092658, 0.019828,0.1506, -1.0922, -0.0017, 0.1391,0,0,0]
 for i in range(len(jntIdx)):
     p.resetJointState(targid,jntIdx[i],initCond[i])
-# obj_of_focus = targid  #make camera focus on specified target(or assent)
 
 # print(p.getNumJoints(targid))  #28 different joint
-# jointid = 4
 
 ### getJointInfo
 # for i in range(p.getNumJoints(targid)):
@@ -36,31 +35,16 @@ for i in range(len(jntIdx)):
 # jupper = p.getJointInfo(targid, jointid)[9]
 jlower, jupper = -1.0472, 1.0472
 # print(jlower,jupper)
-
-## changing joint angles
-# for step in range(10000):
-#     joint_zero_targ = np.random.uniform(jlower,jupper)
-#     joint_zero_targ = -1
-#     # joint_four_targ = np.random.uniform(jlower,jupper)
-#     p.setJointMotorControlArray(targid, [0], p.POSITION_CONTROL, targetPositions = [joint_zero_targ])
-#     p.stepSimulation()
-#     # if you need to query joint states or link states to update observation
-#     # print(p.getLinkStates(targid, [2,4]))
-#     if step ==100:
-#         print(p.getJointStates(targid, [0,13]))   #getJointStates -> RETURN jointPosition, jointVelocity, [jointReactionForces], appliedJointMotorTorque
-
-# step default camera position with zero action, lasting 5 secs
-# for step in range(200):
+    
+##### CONTROL INPUT AND CAMERA SETTINGS #####
 focus_position, _ = p.getBasePositionAndOrientation(targid)  #return position and orientation of targid(focus)
 cdist = 3;cyaw=100;cpitch=-20;cubePos=focus_position
 while(1):
-# for step in range(200):
+    
     joint_zero_targ = np.random.uniform(jlower,jupper)
     joint_zero_targ = -1
     p.setJointMotorControlArray(targid, [0], p.POSITION_CONTROL, targetPositions = [joint_zero_targ])
     p.stepSimulation()
-    # p.resetDebugVisualizerCamera(cameraDistance=3, cameraYaw=100, cameraPitch=-20, cameraTargetPosition = focus_position)
-    # p.stepSimulation()
     # time.sleep(.01)
     
     p.resetDebugVisualizerCamera( cameraDistance=cdist, cameraYaw=cyaw, cameraPitch=cpitch, cameraTargetPosition=cubePos)
@@ -80,8 +64,6 @@ while(1):
     if keys.get(120):  #X
         cdist-=.01
     p.stepSimulation()
-    
-    
     
 # class DigitEnv():
 #     def __init__(self):
