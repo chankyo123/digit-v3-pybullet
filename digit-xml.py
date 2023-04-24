@@ -115,7 +115,9 @@ rel_dist = [pos2[i] - pos1[i] for i in range(3)]
 # print("anchor - pos4: ", np.subtract(np.array([0.0179, 0.009551, -0.054164]),np.array(pos4))) 
 # print("anchor - pos5: ", np.subtract(np.array([-0.0181, 0.009551, -0.054164]),np.array(pos5))) 
 # print("anchor - pos6: ", np.subtract(np.array([-0.0181, 0.009551, -0.054164]),np.array(pos6))) 
-# cid = p.createConstraint(robot_id, -1, -1, -1, p.JOINT_FIXED, [0, 0, 0], [0, 0, -1], [0, 0, 1])  # Fix Base In The Air
+
+###### Provide Constraint #######
+cid = p.createConstraint(robot_id, -1, -1, -1, p.JOINT_FIXED, [0, 0, 0], [0, 0, -1], [0, 0, 1])  # Fix Base In The Air
 cid1= p.createConstraint(robot_id, left_heel_spring, robot_id, left_achilles_rod, p.JOINT_POINT2POINT, [0, 0, 1], [-0.43084999, -0.143806, -1.85823301], [ 0.166926, -0.105856, -1.89869301])
 cid2= p.createConstraint(robot_id, left_toe_roll, robot_id, left_toe_A_rod, p.JOINT_POINT2POINT, [0, 0, 1], [-0.95239898, -0.131757, -1.91135701], [-0.66039899, -0.137757, -1.87575701])
 cid3= p.createConstraint(robot_id, left_toe_roll, robot_id, left_toe_B_rod, p.JOINT_POINT2POINT, [0, 0, 1], [-0.98839898, -0.131757, -1.91135701], [-0.74839899, -0.137757, -1.93095701])
