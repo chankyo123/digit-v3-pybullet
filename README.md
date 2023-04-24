@@ -8,14 +8,17 @@
 
 # Directory ./
 1. digit-xml.py
-  Load Digit of XML in PyBullet
-  Assign jointName
-  Provide Closed Loop Constraints
-  Fix Base
-  Set Camera Position - Allow Keyboard/Mouse Events
+
+Load Digit of XML in PyBullet
+Assign jointName
+Provide Closed Loop Constraints
+Fix Base
+Set Camera Position - Allow Keyboard/Mouse Events
 
 2. digit-urdf.py
-  Load Digit of URDF in PyBullet
+
+Load Digit of URDF in PyBullet
   
 3. other miscellaneous codes
-  Useful functions for PyBullet included
+
+Useful functions for PyBullet included
