@@ -9,6 +9,18 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath()) #/Users/ckkim/.local/lib/
 
 p.setGravity(0,0,-9.8)
 p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
+
+###### Choose URDF or MJDF file of robot to load in PyBullet ######
+# loaded_file = "xml/digit-v3-basepinned-armfixed.xml"
+# loaded_file = "humanoid_symmetric.xml"
+loaded_file = "xml/digit-v3-basepinned-armfixed.xml"
+
+###### Observation : Arbitral add of joint and link are only happed when loading MJCF file ######
+# robot_id = p.loadMJCF(loaded_file)[0]
+robot_id = p.loadURDF("quadruped/minitaur_v1.urdf")
+
+# print("num body : ", p.getNumBodies(robot_id))
+print("body info: ", p.getBodyInfo(robot_id))
 shift = [0, -0.02, 0]
 meshScale = [0.1, 0.1, 0.1]
 fileName = "/Users/ckkim/Chankyo Kim/Michigan/pybullet/xml/obj/hip-roll-housing.obj"
@@ -21,9 +33,7 @@ for i in range(rangex):
 p.configureDebugVisualizer(p.COV_ENABLE_RENDERING, 1)
 print("loaded obj file : ",fileName)
 
-# mjcf_file = "mjcf/half_cheetah.xml"
-# mjcf_file = "xml/diamond.xml"
-# robot_id = p.loadMJCF(mjcf_file)[0]
+
 
 # basePos, baseOrn = p.getBasePositionAndOrientation(robot_id)
 # print("base info")
@@ -32,14 +42,16 @@ print("loaded obj file : ",fileName)
 
 # print(pybullet_data.getDataPath())
 
-# nJoints = p.getNumJoints(robot_id)
-# jointNameToId = {}
-# for i in range(nJoints):
-#   jointInfo = p.getJointInfo(robot_id, i)
-#   jointNameToId[jointInfo[1].decode('UTF-8')] = jointInfo[0]
-# print(jointNameToId)
-# print('num joint:',p.getNumJoints(robot_id))  #12 different joint
+###### Setup for Joints #######
+nJoints = p.getNumJoints(robot_id)
+jointNameToId = {}
+for i in range(nJoints):
+  jointInfo = p.getJointInfo(robot_id, i)
+  jointNameToId[jointInfo[1].decode('UTF-8')] = jointInfo[0]
+print(jointNameToId)
+print('num joint:',p.getNumJoints(robot_id))  
 
+print('joint info : ', p.getJointInfo(robot_id, 1))
 
 # focus_position, _ = p.getBasePositionAndOrientation(robot_id)  #return position and orientation of targid(focus)
 # cdist = 3;cyaw=100;cpitch=-20;cubePos=focus_position

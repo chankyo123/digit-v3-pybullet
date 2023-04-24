@@ -1,16 +1,18 @@
+#Chankyo Kim#
 import pybullet as p
 import time
 import pybullet_data
 import numpy as np
 
-# Connect to PyBullet physics server
+###### Connect to PyBullet physics server ######
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath()) #/Users/ckkim/.local/lib/python3.10/site-packages/pybullet_data
 
 p.setGravity(0,0,-9.8)
 p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
+print(pybullet_data.getDataPath())
 
-# Load the example MJCF model
+###### Load MJCF model #######
 # mjcf_file = "example.xml"
 # mjcf_file = "digit-v3-armfixed-springFixed.xml"
 # mjcf_file = "xml/humanoid_symmetric.xml"
@@ -18,25 +20,24 @@ p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. positio
 # mjcf_file = "xml/digit-v3-armfixed-springfixed-bullet.xml"
 # mjcf_file = "xml/diamond.xml"
 # mjcf_file = "xml/hinge-digit-v3-basepinned-armfixed.xml"
-
 # mjcf_file = "xml/hinge-digit-v3-basepinned-armfixed.xml"
 mjcf_file = "xml/digit-v3-basepinned-armfixed.xml"
 robot_id = p.loadMJCF(mjcf_file)[0]
+
+###### Check Base Position and Orientation #######
 # basePos, baseOrn = p.getBasePositionAndOrientation(robot_id)
 # print("base info")
 # print("base position : ",basePos)
 # print("base orientation : ",baseOrn)
 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
-print(pybullet_data.getDataPath())
-
+###### Setup for Joints #######
 nJoints = p.getNumJoints(robot_id)
 jointNameToId = {}
 for i in range(nJoints):
   jointInfo = p.getJointInfo(robot_id, i)
   jointNameToId[jointInfo[1].decode('UTF-8')] = jointInfo[0]
 print(jointNameToId)
-print('num joint:',p.getNumJoints(robot_id))  #12 different joint
+print('num joint:',p.getNumJoints(robot_id))  
 
 
 left_hip_roll = jointNameToId['left-hip-roll']
@@ -114,7 +115,7 @@ rel_dist = [pos2[i] - pos1[i] for i in range(3)]
 # print("anchor - pos4: ", np.subtract(np.array([0.0179, 0.009551, -0.054164]),np.array(pos4))) 
 # print("anchor - pos5: ", np.subtract(np.array([-0.0181, 0.009551, -0.054164]),np.array(pos5))) 
 # print("anchor - pos6: ", np.subtract(np.array([-0.0181, 0.009551, -0.054164]),np.array(pos6))) 
-cid = p.createConstraint(robot_id, -1, -1, -1, p.JOINT_FIXED, [0, 0, 0], [0, 0, -1], [0, 0, 1])  # Fix Base In The Air
+# cid = p.createConstraint(robot_id, -1, -1, -1, p.JOINT_FIXED, [0, 0, 0], [0, 0, -1], [0, 0, 1])  # Fix Base In The Air
 cid1= p.createConstraint(robot_id, left_heel_spring, robot_id, left_achilles_rod, p.JOINT_POINT2POINT, [0, 0, 1], [-0.43084999, -0.143806, -1.85823301], [ 0.166926, -0.105856, -1.89869301])
 cid2= p.createConstraint(robot_id, left_toe_roll, robot_id, left_toe_A_rod, p.JOINT_POINT2POINT, [0, 0, 1], [-0.95239898, -0.131757, -1.91135701], [-0.66039899, -0.137757, -1.87575701])
 cid3= p.createConstraint(robot_id, left_toe_roll, robot_id, left_toe_B_rod, p.JOINT_POINT2POINT, [0, 0, 1], [-0.98839898, -0.131757, -1.91135701], [-0.74839899, -0.137757, -1.93095701])
@@ -130,49 +131,54 @@ focus_position, _ = p.getBasePositionAndOrientation(robot_id)  #return position 
 cdist = 3;cyaw=100;cpitch=-20;cubePos=focus_position
 
 
-# #### Initial condition ####
+###### Initial condition ######
 jntIdx=[i for i in range(p.getNumJoints(robot_id))]
 # initCond=[0.,0.000770, 0.286025,0.373352, 0, -0.346032,0.091354, -0.013601,-0.1506, 1.0922, 0.0017, -0.1391,0,-0.360407, -0.000561, -0.286076,-0.372723, 0, 0.347843,-0.092658, 0.019828,0.1506, -1.0922, -0.0017, 0.1391,0,0,0]
 # # print("init cond:", len(initCond)) #28
-# for i in range(len(jntIdx)):
+for i in range(len(jntIdx)):
     # p.resetJointState(robot_id,jntIdx[i],initCond[i])
-p.resetJointState(robot_id,left_hip_roll,0.361490)
-p.resetJointState(robot_id,left_hip_yaw,0.000770)
-p.resetJointState(robot_id,left_hip_pitch,0.286025)
-p.resetJointState(robot_id,left_knee,0.373352)
-p.resetJointState(robot_id,left_shin,0)
-p.resetJointState(robot_id,left_tarsus,-0.346032)
-p.resetJointState(robot_id,left_heel_spring,-0.009752)
-p.resetJointState(robot_id,left_toe_A,-0.092650)
-p.resetJointState(robot_id,left_toe_A_rod,1)
-p.resetJointState(robot_id,left_toe_B,0.084274)
-p.resetJointState(robot_id,left_toe_B_rod,1)
-p.resetJointState(robot_id,left_toe_pitch,0.091354)
-p.resetJointState(robot_id,left_toe_roll,-0.013601)
-p.resetJointState(robot_id,left_shoulder_roll,-0.1506)
-p.resetJointState(robot_id,left_shoulder_pitch,1.0922)
-p.resetJointState(robot_id,left_shoulder_yaw,0.0017)
-p.resetJointState(robot_id,left_elbow,-0.1391)
+    p.resetJointState(robot_id,jntIdx[i],0.0)
+# p.resetJointState(robot_id,left_hip_roll,0.361490)
+# p.resetJointState(robot_id,left_hip_yaw,0.000770)
+# p.resetJointState(robot_id,left_hip_pitch,0.286025)
+# p.resetJointState(robot_id,left_achilles_rod,1)
+# p.resetJointState(robot_id,left_knee,0.373352)
+# p.resetJointState(robot_id,left_shin,0)
+# p.resetJointState(robot_id,left_tarsus,-0.346032)
+# p.resetJointState(robot_id,left_heel_spring,-0.009752)
+# p.resetJointState(robot_id,left_toe_A,-0.092650)
+# p.resetJointState(robot_id,left_toe_A_rod,1)
+# p.resetJointState(robot_id,left_toe_B,0.084274)
+# p.resetJointState(robot_id,left_toe_B_rod,1)
+# p.resetJointState(robot_id,left_toe_pitch,0.091354)
+# p.resetJointState(robot_id,left_toe_roll,-0.013601)
+# p.resetJointState(robot_id,left_shoulder_roll,-0.1506)
+# p.resetJointState(robot_id,left_shoulder_pitch,1.0922)
+# p.resetJointState(robot_id,left_shoulder_yaw,0.0017)
+# p.resetJointState(robot_id,left_elbow,-0.1391)
 
 
-p.resetJointState(robot_id,right_hip_roll,-0.360407)
-p.resetJointState(robot_id,right_hip_yaw, -0.000561)
-p.resetJointState(robot_id,right_hip_pitch,-0.286076)
-p.resetJointState(robot_id,right_knee,-0.372723)
-p.resetJointState(robot_id,right_shin,0)
-p.resetJointState(robot_id,right_tarsus,0.347843)
-p.resetJointState(robot_id,right_heel_spring,0.008955)
-p.resetJointState(robot_id,right_toe_A,0.095860)
-p.resetJointState(robot_id,right_toe_A_rod,1)    #-1
-p.resetJointState(robot_id,right_toe_B,-0.083562)
-p.resetJointState(robot_id,right_toe_B_rod,1)    #-1
-p.resetJointState(robot_id,right_toe_pitch,-0.092658)
-p.resetJointState(robot_id,right_toe_roll,0.019828)
-p.resetJointState(robot_id,right_shoulder_roll,0.1506)
-p.resetJointState(robot_id,right_shoulder_pitch, -1.0922)
-p.resetJointState(robot_id,right_shoulder_yaw,-0.0017)
-p.resetJointState(robot_id,right_elbow,0.1391)
-# Simulate the robot for some time
+# p.resetJointState(robot_id,right_hip_roll,-0.360407)
+# p.resetJointState(robot_id,right_hip_yaw, -0.000561)
+# p.resetJointState(robot_id,right_hip_pitch,-0.286076)
+# p.resetJointState(robot_id,right_achilles_rod,1)
+# p.resetJointState(robot_id,right_knee,-0.372723)
+# p.resetJointState(robot_id,right_shin,0)
+# p.resetJointState(robot_id,right_tarsus,0.347843)
+# p.resetJointState(robot_id,right_heel_spring,0.008955)
+# p.resetJointState(robot_id,right_toe_A,0.095860)
+# p.resetJointState(robot_id,right_toe_A_rod,1)    #-1
+# p.resetJointState(robot_id,right_toe_B,-0.083562)
+# p.resetJointState(robot_id,right_toe_B_rod,1)    #-1
+# p.resetJointState(robot_id,right_toe_pitch,-0.092658)
+# p.resetJointState(robot_id,right_toe_roll,0.019828)
+# p.resetJointState(robot_id,right_shoulder_roll,0.1506)
+# p.resetJointState(robot_id,right_shoulder_pitch, -1.0922)
+# p.resetJointState(robot_id,right_shoulder_yaw,-0.0017)
+# p.resetJointState(robot_id,right_elbow,0.1391)
+
+
+###### Simulation ######
 for i in range(10000):
     p.resetDebugVisualizerCamera( cameraDistance=cdist, cameraYaw=cyaw, cameraPitch=cpitch, cameraTargetPosition=cubePos)
     # p.setJointMotorControlArray(robot_id, [left_tarsus], p.POSITION_CONTROL, targetPositions = [-0.346032])
@@ -196,7 +202,7 @@ for i in range(10000):
     # time.sleep(.01)
     
     # print(p.getLinkStates(robot_id, [left_knee]))
-    print(p.getJointStates(robot_id, [left_hip_yaw]))
+    # print(p.getJointStates(robot_id, [left_hip_yaw]))
     
 
 # Disconnect from the physics server
