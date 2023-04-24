@@ -8,17 +8,24 @@ p.connect(p.GUI) #or p.DIRECT
 p.resetSimulation()
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-p.setGravity(0,0,-9.8)
+# p.setGravity(0,0,-9.8)
 p.setRealTimeSimulation(0)
 
 # Load assets
-p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
-# targid = p.loadMJCF("/Users/ckkim/Chankyo Kim/ROAHM/ROAHM_Robust_Control/MuJoCo/bin/digit-v3-basepinned-armfixed-springFixed_v2.xml")
-# targid = p.loadMJCF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/digit.xml")[0] 
-targid = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
+# p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
+targid = p.loadMJCF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/digit-v3-armfixed-springFixed.xml")[0]
+# targid = p.loadMJCF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/cassie-mujoco-sim/model/cassie.xml")[0] 
+# targid = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # obj_of_focus = targid  #make camera focus on specified target(or assent)
+p.setPhysicsEngineParameter(numSolverIterations=200)
 
-# print(p.getNumJoints(targid))  #12 different joint
+print('joint num:', p.getNumJoints(targid))  #12 different joint
+nJoints = p.getNumJoints(targid)
+
+jointNameToId = {}
+for i in range(nJoints):
+  jointInfo = p.getJointInfo(targid, i)
+  jointNameToId[jointInfo[1].decode('UTF-8')] = jointInfo[0]
 # jointid = 4
 # jtype = p.getJointInfo(targid, jointid)[2]
 # jlower = p.getJointInfo(targid, jointid)[8]
@@ -39,8 +46,8 @@ targid = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model
 '''    
 # step default camera position with zero action, lasting 5 secs
 for step in range(200):
-    focus_position, _ = p.getBasePositionAndOrientation(targid)  #return position and orientation of targid(focus)
-    p.resetDebugVisualizerCamera(cameraDistance=3, cameraYaw=0, cameraPitch=-40, cameraTargetPosition = focus_position)
+    # focus_position, _ = p.getBasePositionAndOrientation(targid)  #return position and orientation of targid(focus)
+    # p.resetDebugVisualizerCamera(cameraDistance=3, cameraYaw=0, cameraPitch=-40, cameraTargetPosition = focus_position)
     p.stepSimulation()
     time.sleep(.01)
     

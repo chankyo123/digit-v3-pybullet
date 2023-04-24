@@ -4,13 +4,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
-
+import paddle
+import signal
+import time
 #Hyperparameters
 learning_rate = 0.0005
 gamma         = 0.98
 lmbda         = 0.95
 eps_clip      = 0.1
-K_epoch       = 3
+K_epoch       = 1
 T_horizon     = 20
 
 class PPO(nn.Module):
@@ -18,14 +20,14 @@ class PPO(nn.Module):
         super(PPO, self).__init__()
         self.data = []
         
-        self.fc1   = nn.Linear(4,256)
-        self.fc_pi = nn.Linear(256,2)
-        self.fc_v  = nn.Linear(256,1)
+        self.fc1   = nn.Linear(5,1000)
+        self.fc_pi = nn.Linear(1000,3)
+        self.fc_v  = nn.Linear(1000,1)
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
 
     def pi(self, x, softmax_dim = 0):
         x = F.relu(self.fc1(x))
-        x = self.fc_pi(x)
+        x = F.relu(self.fc_pi(x))
         prob = F.softmax(x, dim=softmax_dim)
         return prob
     
@@ -83,22 +85,38 @@ class PPO(nn.Module):
             self.optimizer.zero_grad()
             loss.mean().backward()
             self.optimizer.step()
-        
+
+    
 def main():
-    env = gym.make('CartPole-v1')
+    # env = gym.make('CartPole-v1')
+    env = paddle.Paddle()
+    start_time = time.time()
     model = PPO()
     score = 0.0
     print_interval = 20
-
+    Sentry = True
+    def signalhandler_SIGINT(SignalNumber,Frame):
+        global Sentry
+        Sentry = False
+        print("singalhandler of signal.SIGINT") 
+    
+    n_epi=0
+    
+    # while Sentry:    
     for n_epi in range(10000):
-        s = env.reset()[0]
+        s = env.reset()
         done = False
         while not done:
             for t in range(T_horizon):
+                # print(s)
                 prob = model.pi(torch.from_numpy(s).float())
+                # print('prob=',prob)
                 m = Categorical(prob)
+                # print('m=',m)
+                # print('m.sample=',m.sample())
                 a = m.sample().item()
-                s_prime, r, done, info,_ = env.step(a)
+                # print('a=',a)
+                r, s_prime, done= env.step(a)
 
                 model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
                 s = s_prime
@@ -110,10 +128,15 @@ def main():
             model.train_net()
 
         if n_epi%print_interval==0 and n_epi!=0:
-            print("# of episode :{}, avg score : {:.1f}".format(n_epi, score/print_interval))
+            print("# of episode :{}, avg score : {:.3f}".format(n_epi, score/print_interval))
             score = 0.0
-
+        # n_epi += 1
+        # signal.signal(signal.SIGINT,signalhandler_SIGINT)
+        # print("Sentry=",Sentry)
     env.close()
+    print("end")
+    end_time = time.time()
+    print("Training time: {} seconds".format(end_time - start_time))
 
 if __name__ == '__main__':
     main()

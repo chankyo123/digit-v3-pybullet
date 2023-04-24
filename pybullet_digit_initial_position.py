@@ -13,8 +13,8 @@ p.setRealTimeSimulation(0)
 
 # Load assets
 p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
-# targid = p.loadMJCF("/Users/ckkim/Chankyo Kim/ROAHM/ROAHM_Robust_Control/MuJoCo/bin/digit-v3-basepinned-armfixed-springFixed_v2.xml")
-digit = p.loadMJCF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/digit-v3-armfixed-springFixed.xml")[0]
+digit = p.loadMJCF("xml/digit-v3-basepinned-armfixed.xml")[0]
+
 # obj_of_focus = targid  #make camera focus on specified target(or assent)
 print("ERROR CHECK")
 ordered_joints = []
@@ -32,8 +32,10 @@ for j in range(p.getNumJoints(digit)):
 
   if info[2] != p.JOINT_REVOLUTE: continue
   jname = info[1].decode("ascii")
+  print("jname: ",jname)
   jdict[jname] = j
   lower, upper = (info[8], info[9])
+  print("lower: ",lower,"upper: ",upper)
   ordered_joints.append((j, lower, upper))
 
   p.setJointMotorControl2(digit, j, controlMode=p.VELOCITY_CONTROL, force=0)
@@ -55,7 +57,7 @@ for j in range(p.getNumJoints(digit)):
     #if you need to query joint states or link states to update observation
     #print(p.getLinkStates(targid, [2,4]))
     # print(p.getJointStates(targid, [2,4]))
-'''    
+''' 
 # step default camera position with zero action, lasting 5 secs
 for step in range(200):
     focus_position, _ = p.getBasePositionAndOrientation(digit)  #return position and orientation of targid(focus)
