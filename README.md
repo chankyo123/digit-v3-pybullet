@@ -1,12 +1,12 @@
 # PyBullet for Digit and Reinforcement Learning
 
-# Directory ./urdf/
-1. Digit is described in URDF format, origial repo from https://github.com/adubredu/DigitRobot.jl/tree/main/urdf
+## Directory ./urdf/
+Digit is described in URDF format, origial repo from https://github.com/adubredu/DigitRobot.jl/tree/main/urdf
 
-# Directory ./xml/
-1. Digit is described in XML format that ball joints are changed to hinge joints since PyBullet don't provide ball joint
+## Directory ./xml/
+Digit is described in XML format that ball joints are changed to hinge joints since PyBullet don't provide ball joint
 
-# Directory ./
+## Directory ./
 1. digit-xml.py
 
 Load Digit of XML in PyBullet
