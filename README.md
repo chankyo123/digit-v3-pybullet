@@ -9,15 +9,11 @@ Digit is described in XML format that ball joints are changed to hinge joints si
 ## Directory ./
 1. digit-xml.py
 
-Load Digit of XML in PyBullet
-
-Assign jointName
-
-Provide Closed Loop Constraints
-
-Fix Base
-
-Set Camera Position - Allow Keyboard/Mouse Events
+* Load Digit of XML in PyBullet
+* Assign jointName
+* Provide Closed Loop Constraints
+* Fix Base
+* Set Camera Position - Allow Keyboard/Mouse Events
 
 2. python-viewer-mujoco.py
 
