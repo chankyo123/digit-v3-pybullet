@@ -17,12 +17,12 @@ Digit is described in XML format that ball joints are changed to hinge joints si
 
 2. python-viewer-mujoco.py
 
-Simple code to check modified Digit XML file (e.g. modifing joint position)
+* Simple code to check modified Digit XML file (e.g. modifing joint position)
 
 3. digit-urdf.py
 
-Load Digit of URDF in PyBullet
+* Load Digit of URDF in PyBullet
   
 4. other miscellaneous codes
 
-Useful functions for PyBullet included
+* Useful functions for PyBullet included
