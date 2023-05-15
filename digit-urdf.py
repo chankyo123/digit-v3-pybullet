@@ -8,14 +8,14 @@ import time
 p.connect(p.GUI) #or p.DIRECT
 p.resetSimulation()
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
-p.setGravity(0,0,-9.8)
+# p.setGravity(0,0,-9.8)
 p.setRealTimeSimulation(0)
 
 ###### Load Model ######
 # p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",useFixedBase = True)
+robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",useFixedBase = False)
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/digit-v3_base.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/humanoid_torso.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("quadruped/minitaur_v1.urdf")
@@ -44,7 +44,7 @@ shoulder_roll_joint_left = jointNameToId['shoulder_roll_joint_left']
 shoulder_pitch_joint_left = jointNameToId['shoulder_pitch_joint_left']
 shoulder_yaw_joint_left = jointNameToId['shoulder_yaw_joint_left']
 elbow_joint_left = jointNameToId['elbow_joint_left']
-shoulder_roll_cap_left = jointNameToId['shoulder_roll_cap_left']
+# shoulder_roll_cap_left = jointNameToId['shoulder_roll_cap_left']
 hip_abduction_right = jointNameToId['hip_abduction_right']
 hip_rotation_right = jointNameToId['hip_rotation_right']
 hip_flexion_right = jointNameToId['hip_flexion_right']
@@ -57,9 +57,9 @@ shoulder_roll_joint_right = jointNameToId['shoulder_roll_joint_right']
 shoulder_pitch_joint_right = jointNameToId['shoulder_pitch_joint_right']
 shoulder_yaw_joint_right = jointNameToId['shoulder_yaw_joint_right']
 elbow_joint_right = jointNameToId['elbow_joint_right']
-shoulder_cap_joint_right = jointNameToId['shoulder_cap_joint_right']
-waist_cap_joint_right = jointNameToId['waist_cap_joint_right']
-waist_cap_joint_left = jointNameToId['waist_cap_joint_left']
+# shoulder_cap_joint_right = jointNameToId['shoulder_cap_joint_right']
+# waist_cap_joint_right = jointNameToId['waist_cap_joint_right']
+# waist_cap_joint_left = jointNameToId['waist_cap_joint_left']
 hip_pitch_achilles_rod_left = jointNameToId['hip_pitch_achilles_rod_left']
 hip_pitch_achilles_rod_right = jointNameToId['hip_pitch_achilles_rod_right']
 tarsus_heel_spring_left = jointNameToId['tarsus_heel_spring_left']
@@ -125,9 +125,50 @@ rel_dist = [pos2[i] - pos1[i] for i in range(3)]
 
 
 # ###### Provide Constraint #######
-print("joint state: ", p.getJointState(robot_id, tarsus_heel_spring_left))
+# print("joint state: ", p.getJointState(robot_id, tarsus_heel_spring_left))
 # p.resetJointState(robot_id,tarsus_heel_spring_left,0.6)
-print("joint state: ", p.getJointState(robot_id, tarsus_heel_spring_left))
+# print("joint state: ", p.getJointState(robot_id, tarsus_heel_spring_left))
+print()
+print("print joint states : ")
+for i in range(nJoints):
+    jointState = p.getJointStateMultiDof(robot_id,i)
+    jointType = p.getJointInfo(robot_id,i)[2]
+    print("joint state pos [",i,"]",jointState[0])
+    
+    if (jointType == p.JOINT_PRISMATIC or jointType == p.JOINT_REVOLUTE):
+        p.resetJointStateMultiDof(robot_id, i, targetValue=[0.2], targetVelocity=[0])
+    if (jointType == p.JOINT_SPHERICAL):
+        p.resetJointStateMultiDof(robot_id, i, targetValue=[0.009485003066, -0.04756001538, -0.004475001447, 1], targetVelocity=[0,0,0])
+print()
+print("print joint states updated : ")
+for i in range(nJoints):
+    jointState = p.getJointStateMultiDof(robot_id,i)
+    jointType = p.getJointInfo(robot_id,i)[2]
+    print("joint state pos [",i,"]",jointState[0])
+# jointStates = p.getJointStatesMultiDof(robot_id, [i for i in range(nJoints)])
+# print(p.getJointStates(robot_id, [i for i in range(nJoints)]))
+
+
+# print(p.getJointStates(robot_id, [i for i in range(nJoints)]))
+
+# ###### Check Fixed Joint by fixedbase attribute #######
+# print()
+# print("Check Fixed Joint")
+# for i in range(nJoints):
+#     ji =  p.getJointInfo(robot_id,i)
+#     jointType = ji[2]
+#     if (jointType == p.JOINT_FIXED):
+#         print(p.getJointInfo(robot_id,i)[1].decode('UTF-8'),end="/ ")
+#         ->> knee_to_shin_left/ shoulder_roll_cap_left/ knee_to_shin_right/ shoulder_cap_joint_right/ waist_cap_joint_right/ waist_cap_joint_left
+
+# ###### MassMatrix #######
+print("nJoints: ")
+print(nJoints)
+MassMatrix = np.array(p.calculateMassMatrix(robot_id,[0 for i in range(nJoints)]))
+print()
+print(MassMatrix)
+print(MassMatrix.shape)
+
 # cid1= p.createConstraint(robot_id, tarsus_heel_spring_left, robot_id, hip_pitch_achilles_rod_left, p.JOINT_POINT2POINT, [0, 0, 1], [0.113789, -0.011056, 0], [0.23773861, -0.05066087, 0])
 # cid2= p.createConstraint(robot_id, toe_roll_joint_left, robot_id, toe_A_toe_A_rod_left, p.JOINT_POINT2POINT, [0, 0, 1], [0.0179, -0.009551, -0.054164], [0.08, 0, 0.0])
 # cid3= p.createConstraint(robot_id, toe_roll_joint_left, robot_id, toe_B_toe_B_rod_left, p.JOINT_POINT2POINT, [0, 0, 1], [-0.98839898, -0.131757, -1.91135701], [-0.74839899, -0.137757, -1.93095701])

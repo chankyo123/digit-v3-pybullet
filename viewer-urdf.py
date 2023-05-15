@@ -15,7 +15,7 @@ p.setRealTimeSimulation(0)
 p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf") 
+robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit-v3.urdf", [0,0,3],[0,0,0,1], useFixedBase = True) 
 
 
 ###### Simulation ######
@@ -36,17 +36,17 @@ while(1):
     keys = p.getKeyboardEvents()
     #Keys to change camera
     if keys.get(100):  #D
-        cyaw+=0.5
+        cyaw+=0.05
     if keys.get(97):   #A
-        cyaw-=0.5
+        cyaw-=0.05
     if keys.get(99):   #C
-        cpitch+=1
+        cpitch+=0.1
     if keys.get(102):  #F
-        cpitch-=1
+        cpitch-=0.1
     if keys.get(122):  #Z
-        cdist+=.01
+        cdist+=.001
     if keys.get(120):  #X
-        cdist-=.01
+        cdist-=.001
     p.stepSimulation()
     
     

@@ -2,24 +2,73 @@
 <robot name="digit">
   <link name="torso">
     <inertial>
-      <origin rpy="0 0 0" xyz="0.001637 0.0002 0.259547"/>
+      <origin rpy="0 0 0" xyz="0.001636612541 0.0002001180789 0.2593064529"/>
       <mass value="15.028392"/>
-      <inertia ixx="0.376284" ixy="-8.8e-05" ixz="0.008378" iyy="0.342655" iyz="6.7e-05" izz="0.100648"/>
+      <inertia ixx="0.3759052548" ixy="-8.776732849e-05" ixz="0.008498611229" iyy="0.3441935" iyz="6.621611757e-05" izz="0.09873232746"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://urdf/torso.obj"/>
+        <mesh filename="package://urdf/stl/torso-v3/torso.stl"/>
       </geometry>
     </visual>
+    <visual>
+      <origin rpy="0 -1.5708 0" xyz="-0.001 0.091 0"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/leg-v3/hip-roll-housing.stl"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin rpy="-0.1745   -1.5708         0" xyz="-0.001 0.12 0.4"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/arm-v3/link-0.stl"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin rpy="0 -1.5708 0" xyz="-0.001 -0.091 0"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/leg-v3/hip-roll-housing.stl"/>
+      </geometry>
+    </visual>
+    <visual>
+      <origin rpy="0.1745   -1.5708         0" xyz="-0.001 -0.12 0.4"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/arm-v3/link-0.stl"/>
+      </geometry>
+    </visual>
+
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://urdf/torso.obj"/>
+        <mesh filename="package://urdf/stl/torso-v3/torso.stl"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 -1.5708 0" xyz="-0.001 0.091 0"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/leg-v3/hip-roll-housing.stl"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="-0.1745   -1.5708         0" xyz="-0.001 0.12 0.4"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/arm-v3/link-0.stl"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0 -1.5708 0" xyz="-0.001 -0.091 0"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/leg-v3/hip-roll-housing.stl"/>
+      </geometry>
+    </collision>
+    <collision>
+      <origin rpy="0.1745   -1.5708         0" xyz="-0.001 -0.12 0.4"/>
+      <geometry>
+        <mesh filename="package://urdf/stl/arm-v3/link-0.stl"/>
       </geometry>
     </collision>
   </link>
-  <link name="left_hip_roll">
+  <link name="left-leg/hip-roll">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.001967 0.000244 0.031435"/>
       <mass value="0.915088"/>
@@ -28,17 +77,17 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://urdf/hip-yaw-housing.obj"/>
+        <mesh filename="package://urdf/stl/leg-v3/hip-yaw-housing.stl"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://urdf/hip-yaw-housing.obj"/>
+        <mesh filename="package://urdf/stl/leg-v3/hip-yaw-housing.stl"/>
       </geometry>
     </collision>
   </link>
-  <link name="left_hip_yaw">
+  <!-- <link name="left_hip_yaw">
     <inertial>
       <origin rpy="0 0 0" xyz="1e-05 -0.001945 0.042033"/>
       <mass value="0.818753"/>
@@ -189,7 +238,7 @@
         <mesh filename="package://urdf/arm-L1.obj"/>
       </geometry>
     </collision>
-  </link>
+  </link> -->
   <!-- <link name="left_shoulder_cap">
     <inertial>
       <origin rpy="0 0 0" xyz="9e-06 -0.003158 0.023405"/>
@@ -228,7 +277,7 @@
       </geometry>
     </collision>
   </link> -->
-  <link name="left_shoulder_pitch">
+  <!-- <link name="left_shoulder_pitch">
     <inertial>
       <origin rpy="0 0 0" xyz="-4.2e-05 -0.061882 -0.073788"/>
       <mass value="1.440357"/>
@@ -455,7 +504,7 @@
         <mesh filename="package://urdf/arm-L1.obj" scale="1 -1 1"/>
       </geometry>
     </collision>
-  </link>
+  </link> -->
   <!-- <link name="right_shoulder_cap">
     <inertial>
       <origin rpy="0 0 0" xyz="9e-06 0.003158 0.023405"/>
@@ -494,7 +543,7 @@
       </geometry>
     </collision>
   </link> -->
-  <link name="right_shoulder_pitch">
+  <!-- <link name="right_shoulder_pitch">
     <inertial>
       <origin rpy="0 0 0" xyz="-4.2e-05 0.061882 -0.073788"/>
       <mass value="1.440357"/>
@@ -781,7 +830,7 @@
         <mesh filename="package://urdf/toe-B-rod.obj" scale="1 -1 1"/>
       </geometry>
     </collision>
-  </link>
+  </link> -->
 
 
 <!-- there is some error in hip-abduction-left -->
@@ -789,13 +838,13 @@
     <origin rpy="1.57079632679 -1.1955506 -1.57079632679" xyz="-0.001 0.091 0"/>
     <axis xyz="0 0 1"/>
     <parent link="torso"/>
-    <child link="left_hip_roll"/>
+    <child link="left-leg/hip-roll"/>
     <limit effort="1.4" lower="-1.0472" upper="1.0472" velocity="12.15"/>
   </joint>
-  <joint name="hip_rotation_left" type="revolute">
+  <!-- <joint name="hip_rotation_left" type="revolute">
     <origin rpy="0 -1.57079632679 0" xyz="-0.0505 0 0.044"/>
     <axis xyz="0 0 1"/>
-    <parent link="left_hip_roll"/>
+    <parent link="left-leg/hip-roll"/>
     <child link="left_hip_yaw"/>
     <limit effort="1.4" lower="-0.698132" upper="0.698132" velocity="12.15"/>
   </joint>
@@ -848,14 +897,14 @@
     <child link="left_shoulder_roll"/>
     <limit effort="1.4" lower="-1.309" upper="1.309" velocity="12.5"/>
   </joint>
-  <!-- <joint name="shoulder_roll_cap_left" type="fixed">
+  <joint name="shoulder_roll_cap_left" type="fixed">
     <origin rpy="-1.57079632679 -1.3962633 1.57079632679" xyz="0.001 0.12 0.4"/>
     <axis xyz="0 0 1"/>
     <parent link="torso"/>
     <child link="left_shoulder_cap"/>
     <limit effort="1.4" lower="-1.309" upper="1.309" velocity="12.5"/>
   </joint> -->
-  <joint name="shoulder_pitch_joint_left" type="revolute">
+  <!-- <joint name="shoulder_pitch_joint_left" type="revolute">
     <origin rpy="1.57079632679 0.785398163397 -0.2792527" xyz="-0.00317 -0.011055 0.0555"/>
     <axis xyz="0 0 -1"/>
     <parent link="left_shoulder_roll"/>
@@ -938,7 +987,7 @@
     <parent link="torso"/>
     <child link="right_shoulder_roll"/>
     <limit effort="1.4" lower="-1.309" upper="1.309" velocity="12.5"/>
-  </joint>
+  </joint> -->
   <!-- <joint name="shoulder_cap_joint_right" type="fixed">
     <origin rpy="1.57079632679 -1.3962633 -1.57079632679" xyz="0.001 -0.12 0.4"/>
     <axis xyz="0 0 1"/>
@@ -963,7 +1012,7 @@
     <limit effort="1.4" lower="-1.309" upper="1.309" velocity="12.5"/>
   </joint> -->
 
-  <joint name="shoulder_pitch_joint_right" type="revolute">
+  <!-- <joint name="shoulder_pitch_joint_right" type="revolute">
     <origin rpy="-1.57079632679 0.785398163397 0.2792527" xyz="-0.00317 0.011055 0.0555"/>
     <axis xyz="0 0 -1"/>
     <parent link="right_shoulder_roll"/>
@@ -1069,6 +1118,6 @@
     <parent link="right_toe_B"/>
     <child link="right_toe_B_rod"/>
     <limit effort="0.9" lower="-1.7453" upper="1.7453" velocity="11.5"/>
-  </joint>
+  </joint> -->
 
 </robot>
