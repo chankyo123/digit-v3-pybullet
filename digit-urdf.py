@@ -15,8 +15,8 @@ p.setRealTimeSimulation(0)
 # p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",useFixedBase = False)
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/digit-v3_base.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit_model_closed.urdf",useFixedBase = False)
+robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit-v3.urdf",[0,0,2],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/humanoid_torso.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
 # robot_id = p.loadURDF("quadruped/minitaur_v1.urdf")
 
@@ -32,69 +32,79 @@ for i in range(nJoints):
 print(jointNameToId)
 print('num joint:',p.getNumJoints(robot_id))  
 
-hip_abduction_left = jointNameToId['hip_abduction_left']
-hip_rotation_left = jointNameToId['hip_rotation_left']
-hip_flexion_left = jointNameToId['hip_flexion_left']
-knee_joint_left = jointNameToId['knee_joint_left']
-knee_to_shin_left = jointNameToId['knee_to_shin_left']
-shin_to_tarsus_left = jointNameToId['shin_to_tarsus_left']
-toe_pitch_joint_left = jointNameToId['toe_pitch_joint_left']
-toe_roll_joint_left = jointNameToId['toe_roll_joint_left']
-shoulder_roll_joint_left = jointNameToId['shoulder_roll_joint_left']
-shoulder_pitch_joint_left = jointNameToId['shoulder_pitch_joint_left']
-shoulder_yaw_joint_left = jointNameToId['shoulder_yaw_joint_left']
-elbow_joint_left = jointNameToId['elbow_joint_left']
+left_hip_roll = jointNameToId['left_hip_roll']
+left_hip_yaw = jointNameToId['left_hip_yaw']
+left_hip_pitch = jointNameToId['left_hip_pitch']
+left_knee = jointNameToId['left_knee']
+left_shin = jointNameToId['left_shin']
+left_tarsus = jointNameToId['left_tarsus']
+left_toe_pitch = jointNameToId['left_toe_pitch']
+left_toe_roll = jointNameToId['left_toe_roll']
+left_heel_spring = jointNameToId['left_heel_spring']
+left_toe_A = jointNameToId['left_toe_A']
+left_toe_A_rod = jointNameToId['left_toe_A_rod']
+left_A2 = jointNameToId['left_A2']
+left_toe_B = jointNameToId['left_toe_B']
+left_toe_B_rod = jointNameToId['left_toe_B_rod']
+left_B2 = jointNameToId['left_B2']
+left_achilles_rod = jointNameToId['left_achilles_rod']
+left_ach2 = jointNameToId['left_ach2']
+left_shoulder_roll = jointNameToId['left_shoulder_roll']
+left_shoulder_pitch = jointNameToId['left_shoulder_pitch']
+left_shoulder_yaw = jointNameToId['left_shoulder_yaw']
+left_elbow = jointNameToId['left_elbow']
+right_hip_roll = jointNameToId['right_hip_roll']
+right_hip_yaw = jointNameToId['right_hip_yaw']
+right_hip_pitch = jointNameToId['right_hip_pitch']
+right_knee = jointNameToId['right_knee']
+right_shin = jointNameToId['right_shin']
+right_tarsus = jointNameToId['right_tarsus']
+right_toe_pitch = jointNameToId['right_toe_pitch']
+right_toe_roll = jointNameToId['right_toe_roll']
+right_heel_spring = jointNameToId['right_heel_spring']
+right_toe_A = jointNameToId['right_toe_A']
+right_toe_A_rod = jointNameToId['right_toe_A_rod']
+right_A2 = jointNameToId['right_A2']
+right_toe_B = jointNameToId['right_toe_B']
+right_toe_B_rod = jointNameToId['right_toe_B_rod']
+right_B2 = jointNameToId['right_B2']
+right_achilles_rod = jointNameToId['right_achilles_rod']
+right_ach2 = jointNameToId['right_ach2']
+right_shoulder_roll = jointNameToId['right_shoulder_roll']
+right_shoulder_pitch = jointNameToId['right_shoulder_pitch']
+right_shoulder_yaw = jointNameToId['right_shoulder_yaw']
+right_elbow = jointNameToId['right_elbow']
+
+
+# hip_abduction_left = jointNameToId['hip_abduction_left'];hip_rotation_left = jointNameToId['hip_rotation_left'];hip_flexion_left = jointNameToId['hip_flexion_left'];knee_joint_left = jointNameToId['knee_joint_left'];knee_to_shin_left = jointNameToId['knee_to_shin_left'];shin_to_tarsus_left = jointNameToId['shin_to_tarsus_left'];toe_pitch_joint_left = jointNameToId['toe_pitch_joint_left'];toe_roll_joint_left = jointNameToId['toe_roll_joint_left'];shoulder_roll_joint_left = jointNameToId['shoulder_roll_joint_left'];shoulder_pitch_joint_left = jointNameToId['shoulder_pitch_joint_left'];shoulder_yaw_joint_left = jointNameToId['shoulder_yaw_joint_left'];elbow_joint_left = jointNameToId['elbow_joint_left']
 # shoulder_roll_cap_left = jointNameToId['shoulder_roll_cap_left']
-hip_abduction_right = jointNameToId['hip_abduction_right']
-hip_rotation_right = jointNameToId['hip_rotation_right']
-hip_flexion_right = jointNameToId['hip_flexion_right']
-knee_joint_right = jointNameToId['knee_joint_right']
-knee_to_shin_right = jointNameToId['knee_to_shin_right']
-shin_to_tarsus_right = jointNameToId['shin_to_tarsus_right']
-toe_pitch_joint_right = jointNameToId['toe_pitch_joint_right']
-toe_roll_joint_right = jointNameToId['toe_roll_joint_right']
-shoulder_roll_joint_right = jointNameToId['shoulder_roll_joint_right']
-shoulder_pitch_joint_right = jointNameToId['shoulder_pitch_joint_right']
-shoulder_yaw_joint_right = jointNameToId['shoulder_yaw_joint_right']
-elbow_joint_right = jointNameToId['elbow_joint_right']
+# hip_abduction_right = jointNameToId['hip_abduction_right'];hip_rotation_right = jointNameToId['hip_rotation_right'];hip_flexion_right = jointNameToId['hip_flexion_right'];knee_joint_right = jointNameToId['knee_joint_right'];knee_to_shin_right = jointNameToId['knee_to_shin_right'];shin_to_tarsus_right = jointNameToId['shin_to_tarsus_right'];toe_pitch_joint_right = jointNameToId['toe_pitch_joint_right'];toe_roll_joint_right = jointNameToId['toe_roll_joint_right'];shoulder_roll_joint_right = jointNameToId['shoulder_roll_joint_right'];shoulder_pitch_joint_right = jointNameToId['shoulder_pitch_joint_right'];shoulder_yaw_joint_right = jointNameToId['shoulder_yaw_joint_right'];elbow_joint_right = jointNameToId['elbow_joint_right']
 # shoulder_cap_joint_right = jointNameToId['shoulder_cap_joint_right']
 # waist_cap_joint_right = jointNameToId['waist_cap_joint_right']
 # waist_cap_joint_left = jointNameToId['waist_cap_joint_left']
-hip_pitch_achilles_rod_left = jointNameToId['hip_pitch_achilles_rod_left']
-hip_pitch_achilles_rod_right = jointNameToId['hip_pitch_achilles_rod_right']
-tarsus_heel_spring_left = jointNameToId['tarsus_heel_spring_left']
-tarsus_heel_spring_right = jointNameToId['tarsus_heel_spring_right']
-tarsus_toe_A_left = jointNameToId['tarsus_toe_A_left']
-tarsus_toe_A_right = jointNameToId['tarsus_toe_A_right']
-toe_A_toe_A_rod_left = jointNameToId['toe_A_toe_A_rod_left']
-toe_A_toe_A_rod_right = jointNameToId['toe_A_toe_A_rod_right']
-tarsus_toe_B_left = jointNameToId['tarsus_toe_B_left']
-tarsus_toe_B_right = jointNameToId['tarsus_toe_B_right']
-toe_B_toe_B_rod_left = jointNameToId['toe_B_toe_B_rod_left']
-toe_B_toe_B_rod_right = jointNameToId['toe_B_toe_B_rod_right']
-
+# hip_pitch_achilles_rod_left = jointNameToId['hip_pitch_achilles_rod_left'];hip_pitch_achilles_rod_right = jointNameToId['hip_pitch_achilles_rod_right'];tarsus_heel_spring_left = jointNameToId['tarsus_heel_spring_left'];tarsus_heel_spring_right = jointNameToId['tarsus_heel_spring_right'];tarsus_toe_A_left = jointNameToId['tarsus_toe_A_left'];tarsus_toe_A_right = jointNameToId['tarsus_toe_A_right'];toe_A_toe_A_rod_left = jointNameToId['toe_A_toe_A_rod_left'];toe_A_toe_A_rod_right = jointNameToId['toe_A_toe_A_rod_right'];tarsus_toe_B_left = jointNameToId['tarsus_toe_B_left'];tarsus_toe_B_right = jointNameToId['tarsus_toe_B_right'];toe_B_toe_B_rod_left = jointNameToId['toe_B_toe_B_rod_left'];toe_B_toe_B_rod_right = jointNameToId['toe_B_toe_B_rod_right'];left_toe_A_rod_2 = jointNameToId['left_toe_A_rod_2'];right_toe_A_rod_2 = jointNameToId['right_toe_A_rod_2'];left_toe_B_rod_2 = jointNameToId['left_toe_B_rod_2'];right_toe_B_rod_2 = jointNameToId['right_toe_B_rod_2'];left_achilles_rod_2 = jointNameToId['left_achilles_rod_2'];right_achilles_rod_2 = jointNameToId['right_achilles_rod_2']
 
 print()
 print("joint info")
-print("toe_roll_joint_left joint info : ", p.getJointInfo(robot_id,toe_roll_joint_left))
-print("hip_pitch_achilles_rod_left joint info : ", p.getJointInfo(robot_id,hip_pitch_achilles_rod_left))
+# print("toe_roll_joint_left joint info : ", p.getJointInfo(robot_id,toe_roll_joint_left))
+# print("hip_pitch_achilles_rod_left joint info : ", p.getJointInfo(robot_id,hip_pitch_achilles_rod_left))
 # print("jointfix_13_4 joint info : ", p.getJointInfo(robot_id,3))
 print()
 print("link info")
-print("toe_roll_joint_left link state : ",p.getLinkState(robot_id,toe_roll_joint_left))
-print("hip_pitch_achilles_rod_left link state : ",p.getLinkState(robot_id,hip_pitch_achilles_rod_left))
+# print("toe_roll_joint_left link state : ",p.getLinkState(robot_id,toe_roll_joint_left))
+# print("hip_pitch_achilles_rod_left link state : ",p.getLinkState(robot_id,hip_pitch_achilles_rod_left))
 
 # Get the link state of the two joints
-link_state_1 = p.getLinkState(robot_id, tarsus_heel_spring_left)
-link_state_2 = p.getLinkState(robot_id, hip_pitch_achilles_rod_left)
+# link_state_1 = p.getLinkState(robot_id, tarsus_heel_spring_left)
+# link_state_2 = p.getLinkState(robot_id, hip_pitch_achilles_rod_left)
 # link_state_3 = p.getLinkState(robot_id, right_toe_roll)
 # link_state_4 = p.getLinkState(robot_id, right_toe_A_rod)
 # link_state_5 = p.getLinkState(robot_id, right_toe_roll)
 # link_state_6 = p.getLinkState(robot_id, right_toe_B_rod)
 
 # Extract the position vectors from the link states
-pos1 = link_state_1[4]
-pos2 = link_state_2[4]
+# pos1 = link_state_1[4]
+# pos2 = link_state_2[4]
 # pos3 = link_state_3[0]
 # pos4 = link_state_4[0]
 # pos5 = link_state_5[0]
@@ -105,7 +115,7 @@ pos2 = link_state_2[4]
 # print("linkworld position - left_achilles_rod : ", link_state_2[4])
 
 # Compute the relative distance vector
-rel_dist = [pos2[i] - pos1[i] for i in range(3)]
+# rel_dist = [pos2[i] - pos1[i] for i in range(3)]
 # print("anchor - pos1: ", np.subtract(np.array([0.113789, -0.011056, 0]),np.array(pos1))) 
 # print("anchor - pos2: ", np.subtract(np.array([0.113789, -0.011056, 0]),np.array(pos2))) 
 # print("anchor - pos3: ", np.subtract(np.array([0.0179, 0.009551, -0.054164]),np.array(pos3))) 
@@ -119,8 +129,6 @@ rel_dist = [pos2[i] - pos1[i] for i in range(3)]
 # for i in range(len(jntIdx)):
 #     p.resetJointState(robot_id,jntIdx[i],initCond[i])
 # # print(p.getNumJoints(robot_id))  #28 different joint
-
-
 
 
 

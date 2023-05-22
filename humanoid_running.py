@@ -1,8 +1,8 @@
-try:
-  import tf.compat.v1 as tf
-except Exception:
-  import tensorflow.compat.v1 as tf
-  tf.disable_eager_execution()
+# try:
+#   import tf.compat.v1 as tf
+# except Exception:
+#   import tensorflow.compat.v1 as tf
+#   tf.disable_eager_execution()
 import sys
 import numpy as np
 import argparse
@@ -64,6 +64,7 @@ motor_power += [75, 75, 75]
 motor_names += ["left_shoulder1", "left_shoulder2", "left_elbow"]
 motor_power += [75, 75, 75]
 motors = [jdict[n] for n in motor_names]
+print(motors)
 
 
 class Dummy:

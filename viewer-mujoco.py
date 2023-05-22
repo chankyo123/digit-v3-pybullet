@@ -25,8 +25,8 @@ except KeyError as e:
 # for  i in range(len(data.qpos)):
 #     print(data.qpos[i], " ")
 
-for  i in range(len(data.qpos)):
-    data.qpos[i] = 0
+# for  i in range(len(data.qpos)):
+#     data.qpos[i] = 0
 # data.qpos[0] = 0.361490
 # data.qpos[1] = 0.000770
 # data.qpos[2] = 0.286025
