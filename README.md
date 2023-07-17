@@ -1,5 +1,14 @@
 # PyBullet for Digit and Reinforcement Learning
 
+PyBullet Simulation Environment for the bipedal robot "Digit"
+
+Chankyo Kim
+
+RoahmLab
+
+University of Michigan
+
+
 ## Directory ./urdf/
 Digit is described in URDF format, origial repo from https://github.com/adubredu/DigitRobot.jl/tree/main/urdf
 
