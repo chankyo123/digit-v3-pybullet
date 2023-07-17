@@ -8,16 +8,18 @@ RoahmLab (http://www.roahmlab.com/)
 
 University of Michigan
 
+
+
 ## Robot Model
 A lot of robotic dynamics softwares (such as Matlab robotics toolbox, Pinocchio, and PyBullet) are sensitive to the order of joints & links in URDF. If you want to create URDF for a branched robot, you should CROSS-CHECK (e.g. Inertia Matrix) it among Matlab robotics toolbox, PyBullet, and Roy Featherstone spatial dynamics library.
 
-### Directory ./urdf/
+### Directory '/urdf/'
 Digit described in URDF format.
 
-### Directory ./xml/
-Digit is described in XML format that ball joints are changed to hinge joints since PyBullet don't provide ball joint
+### Directory '/xml/'
+Digit described in XML format that ball joints are changed to hinge joints since PyBullet doesn't provide ball joint
 
-## Directory ./
+### Directory '/'
 1. digit-xml.py
 
 * Load Digit of XML in PyBullet
