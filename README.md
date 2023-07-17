@@ -4,15 +4,17 @@ PyBullet Simulation Environment for the bipedal robot "Digit"
 
 Chankyo Kim
 
-RoahmLab
+RoahmLab (http://www.roahmlab.com/)
 
 University of Michigan
 
+## Robot Model
+A lot of robotic dynamics softwares (such as Matlab robotics toolbox, Pinocchio, and PyBullet) are sensitive to the order of joints & links in URDF. If you want to create URDF for a branched robot, you should CROSS-CHECK (e.g. Inertia Matrix) it among Matlab robotics toolbox, PyBullet, and Roy Featherstone spatial dynamics library.
 
-## Directory ./urdf/
-Digit is described in URDF format, origial repo from https://github.com/adubredu/DigitRobot.jl/tree/main/urdf
+### Directory ./urdf/
+Digit described in URDF format.
 
-## Directory ./xml/
+### Directory ./xml/
 Digit is described in XML format that ball joints are changed to hinge joints since PyBullet don't provide ball joint
 
 ## Directory ./
