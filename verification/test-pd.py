@@ -5,10 +5,12 @@ import time
 import csv
 import os
 
+####### Connect to the physics simulation 'PyBullet' #######
 p.connect(p.GUI)
 # p.connect(p.DIRECT)
-p.setAdditionalSearchPath(pybullet_data.getDataPath())
+p.setAdditionalSearchPath(pybullet_data.getDataPath())  #import pybullet_data and register the directory
 
+####### Load Robot Models, Set simulation parameters #######
 p.loadURDF("plane.urdf",[0,0,0])
 p.setGravity(0, 0, -9.8)
 timestep = 1000
@@ -28,7 +30,7 @@ robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit-v3/
 # robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/urdf/digit-v3/digit-v3-armfixed-right.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
 
 
-###### Setup for Joints #######
+####### Setup for Joints #######
 nJoints = p.getNumJoints(robot_id)
 jointNameToId = {}
 for i in range(nJoints):
@@ -64,7 +66,7 @@ focus_position, _ = p.getBasePositionAndOrientation(robot_id)
 cdist = 3;cyaw = 100;cpitch = -20;cubePos = focus_position
 numJoints = p.getNumJoints(robot_id)
 
-####### Change ContactProcessingThreshold ######
+####### Change ContactProcessingThreshold #######
 for i in range(nJoints):
     p.changeDynamics(robot_id,i,contactProcessingThreshold = contactprocessingthreshold)
 
@@ -84,7 +86,7 @@ while os.path.isfile(logFile_checkJoints):
     file_number_ch += 1
     logFile_checkJoints = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/verification/data/'}{'checkJoints-'}{file_number_ch}{extension}"
 
-###### MassMatrix #######
+####### MassMatrix #######
 print("nJoints: ")
 print(nJoints)
 MassMatrix = np.array(p.calculateMassMatrix(robot_id,[0 for i in range(nJoints)]))
@@ -129,29 +131,7 @@ gP=[a for i in range(len(desiredPosition))]; gV=[a for i in range(len(desiredPos
 print("gp, gv is :",gP,gV)
 desiredVelocity=[0 for i in range(len(desiredPosition))]
 
-# desiredVelocity[4] = 0.000001
-# desiredVelocity[5] = 0.000001
-# desiredVelocity[10] = 0.000001
-# desiredVelocity[11] = 0.000001
-
-
-
-# controljointIdx= [left_hip_roll,left_hip_pitch,left_hip_yaw, left_knee,right_hip_roll,right_hip_pitch,right_hip_yaw, right_knee]
-# controljointIdx= [right_hip_roll,right_hip_pitch]
-
-# desiredPosition=[0.360407, 0.3, -0.2, 0.3, 0.36149, 0.3, -0.2, 0.3]  
-# desiredPosition=[0.360407,-1]
-
-# desiredPosition=[-0.360407,-0.3]
-# print("len is : ", len(desiredPosition))
-
-# gP=[400 for i in range(len(desiredPosition))]
-# gP=[1000,8]
-# gV=[0.0003 for i in range(len(desiredPosition))]
-# gV=[50, 50]
-
 ####### Create Constraints #######
-
 #Calculate Position of Closed Looped Anchors (Equation attached in Document: Refer to Chankyo Kim)
 
 cid1= p.createConstraint(robot_id, left_heel_spring, robot_id, left_ach2, p.JOINT_POINT2POINT, [0, 0, 1], [0.113789, -0.011056, 0.], [0.260039048764136, -0.055149132747197,  0.001072511047511])
@@ -176,6 +156,11 @@ for i in range(len(matlab_joint)):
     init_pos_list.append(init_pos[i][0])
 print("init pos for matlab : ", init_pos_list)
 time_data = 0
+
+
+
+####### Run Simulation #######
+
 # for step in range(1000):
 with open(logFile_checkJoints, 'w', newline='') as csvfile_check:
     # Create a CSV writer object
@@ -220,6 +205,7 @@ with open(logFile_checkJoints, 'w', newline='') as csvfile_check:
         # print("init torq for matlab : ",torq_list)    
         writer_check.writerow(check_list)    
         
+        ####### Provide Desired Control #######
         # p.setJointMotorControlArray(robot_id, controljointIdx, p.POSITION_CONTROL, targetPositions = desiredPosition,targetVelocities=desiredVelocity)
         p.setJointMotorControlArray(robot_id,controljointIdx, p.POSITION_CONTROL, targetPositions = desiredPosition,targetVelocities=desiredVelocity,positionGains=gP,velocityGains=gV)
         
@@ -230,6 +216,8 @@ with open(logFile_checkJoints, 'w', newline='') as csvfile_check:
         # time.sleep(1.0/timestep)
         time_data = time_data + 1.0/timestep
         
+        
+        ####### Get Contact Data > #######
         # contact = p.getContactPoints(robot_id)
         # array_contact = np.array(contact)
         
@@ -248,7 +236,7 @@ with open(logFile_checkJoints, 'w', newline='') as csvfile_check:
         #         cnt = cnt + 1
         # else:
         #     writer.writerow(np.array([0]))
-                    
+        ####### < Get Contact Data #######            
             
 
 
