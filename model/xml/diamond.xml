@@ -1,0 +1,36 @@
+<mujoco model="diamond">
+	<compiler angle="radian" coordinate="global"/>
+    <default>
+        <geom contype="0" conaffinity="1" size="0.1"/>
+        <joint damping="0.5" limited="true" range="-1.25 1.25"/>
+    </default>
+	<worldbody>
+		<!-- <light cutoff="4.0" diffuse="1 1 1" dir="-0.9 -0.9 -2.5" directional="true" exponent="20" pos="0.9 0.9 2.5" specular="0 0 0"/> -->
+		<!-- <geom name="ground" pos="0 0 0" rgba="0.25 0.26 0.25 1" size="10 10 2" type="plane" contype="1"/> -->
+
+        <body name="top" euler="0 0 0">
+            <geom type="capsule" fromto="0 0 3 0 0 2"/>
+            <joint axis="0 1 0" name="top" pos="0 0 3"/>
+            <body name="right" euler="-1.57 0 0">
+                <geom type="capsule" fromto="0 0 2 1 0 2" rgba=".8 .7 9 1"/>
+                <joint axis="0 1 0" name="right" pos="0 0 2"/>
+                <body name="down" euler="-1.57 0 0">
+                    <geom type="capsule" fromto="1 0 2 1 0 1" rgba=".8 .7 9 1"/>
+                    <joint axis="0 1 0" name="down" pos="1 0 2"/>
+                    <body name="left" euler="-1.57 0 0">
+                        <geom type="capsule" fromto="1 0 1 0 0 1"/>
+                        <joint axis="0 1 0" name="left" pos="1 0 1"/>
+                        <body name="up" euler="-1.57 0 0">
+                            <geom type="capsule" fromto="0 0 1 0 0 2"/>
+                            <joint axis="0 1 0" name="up" pos="0 0 1"/>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+
+	</worldbody>
+	<equality>
+		<connect anchor="0 0 2" body1="top" body2="up" name="equality_constraint"/>
+	</equality>
+</mujoco>
