@@ -9,7 +9,7 @@ labels = ["left-hip-roll","left-hip-yaw","left-hip-pitch","left-knee", ...
 % Read the CSV file
 % filename_bullet = 'checkJoints-21.csv';
 % filename_bullet = 'test-drop-fricdamp.csv';
-filename_bullet = 'data/pd-4.csv';
+filename_bullet = '/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/pd-4.csv';
 
 data_bullet = readmatrix(filename_bullet);
 

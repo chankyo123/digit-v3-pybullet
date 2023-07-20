@@ -5,8 +5,8 @@ import time
 import csv
 import os
 
-p.connect(p.GUI)
-# p.connect(p.DIRECT)
+# p.connect(p.GUI)
+p.connect(p.DIRECT)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 p.loadURDF("plane.urdf",[0,0,0])
@@ -92,7 +92,7 @@ cid4= p.createConstraint(robot_id, right_heel_spring, robot_id, right_ach2, p.JO
 cid5= p.createConstraint(robot_id, right_toe_roll, robot_id, right_A2, p.JOINT_POINT2POINT, [0, 0, 1], [0.0179, 0.009551, -0.054164], [0.188700873535645, -0.031025632095949, 0.001961040077076])
 cid6= p.createConstraint(robot_id, right_toe_roll, robot_id, right_B2, p.JOINT_POINT2POINT, [0, 0, 1], [-0.0181, 0.009551, -0.054164], [0.164841711315360, 0.030867345479882, -0.002471140022936])
 
-filename = '/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/checkJoints-17.csv'
+filename = '/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/checkJoints-9.csv'
 # filename = 'euler-Joints-4.csv'
 
 row_lists = []
@@ -103,7 +103,7 @@ time_data = 0
 with open(filename, 'r') as file, open(logFile_checkJoints, 'w', newline='') as csvfile_check:
 # with open(filename, 'r') as file:
 
-    # writer_check = csv.writer(csvfile_check)
+    writer_check = csv.writer(csvfile_check)
     reader = csv.reader(file)
     for row in reader:
         if row:  # Skip empty rows if any
@@ -145,7 +145,7 @@ with open(filename, 'r') as file, open(logFile_checkJoints, 'w', newline='') as 
             check_list.append(check_J_list[i][3])
         check_list.append(time_data)    
         # print("init torq for matlab : ",torq_list)    
-        # writer_check.writerow(check_list) 
+        writer_check.writerow(check_list) 
     
         p.setJointMotorControlArray(robot_id, check_joints, p.TORQUE_CONTROL, forces = row_torq)
         # p.setJointMotorControlArray(robot_id,[left_hip_pitch], p.TORQUE_CONTROL, forces = [2000])
