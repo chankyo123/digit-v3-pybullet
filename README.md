@@ -56,6 +56,9 @@ All data should be stored in this directory including CSV generated from PyBulle
 ### Helper Functions
 Useful Functions written in Python and Matlab including codes used to generate convert the close loop constraints from MuJoCo format to pybullet format or compare MassMatrix, etc. Refer to README document inside the directory.
 
+### Outdated
+All miscellaneous data and codes that used for debugging, design own controllers, example codes shared by Bullet are located in the directory.
+
 <!-- 4. other miscellaneous codes
 
 * Useful functions for PyBullet included -->
