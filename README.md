@@ -7,8 +7,7 @@ Chankyo Kim
 RoahmLab (http://www.roahmlab.com/)
 
 University of Michigan
-
-
+<br>
 
 ## To Start
 A lot of robotic dynamics softwares (such as Matlab robotics toolbox, Pinocchio, and PyBullet) are sensitive to the order of joints & links in URDF. If you want to create URDF for a branched robot and use that robot model in a certain simulator, you should CROSS-CHECK (e.g. Inertia Matrix) it among Matlab robotics toolbox, PyBullet, and Roy Featherstone spatial dynamics library to be consistent.
