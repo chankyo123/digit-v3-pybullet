@@ -5,8 +5,7 @@ RoahmLab (http://www.roahmlab.com/)
 
 University of Michigan
 
-
-
 ## Helper Functions
-Locate matlab codes and MuJoCoModels/ in this directory to 'ROAHM_Robust_Control' directory
+Codes are designed to run simulation in ROAM_Robust_Control.
+Locate matlab codes and MuJoCoModels/ in this directory to 'ROAHM_Robust_Control' directory.
 
