@@ -21,9 +21,9 @@ contactprocessingthreshold = 0.005
 p.setDefaultContactERP(contacterp)
 p.setPhysicsEngineParameter(contactBreakingThreshold=contactbreakingthreshold)
 urdfFlags = p.URDF_USE_SELF_COLLISION_EXCLUDE_ALL_PARENTS
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1],[0,0,0,1], useFixedBase = False) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
+robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1],[0,0,0,1], useFixedBase = False) 
 
 
 ####### Setup for Joints #######
@@ -58,11 +58,11 @@ for i in range(nJoints):
 cnt = 0
 base_name = ''
 extension = '.csv';file_number = 1
-logFile = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/'}{'test-drop-'}{file_number}{extension}"
+logFile = f"{'../data/'}{'test-drop-'}{file_number}{extension}"
 
 while os.path.isfile(logFile):
     file_number += 1
-    logFile = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/'}{'test-drop-'}{file_number}{extension}"
+    logFile = f"{'../data/'}{'test-drop-'}{file_number}{extension}"
     
 ####### Create Constraints #######
 # Calculate Position of Closed Looped Anchors (Equation attached in Document: Refer to Chankyo Kim)

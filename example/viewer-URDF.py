@@ -16,11 +16,11 @@ p.setTimeStep(1. / timestep)
 
 ###### Load Model ######
 p.loadURDF("plane.urdf", [0,0,0], [0,0,0,1])  #asset about ground plane. position and quaternion
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit_model_closed.urdf",[0,0,10],[0,0,0,1], useFixedBase = False) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3.urdf", [0,0,3],[0,0,0,1], useFixedBase = True) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zerofriction.urdf", [0,0,1],[0,0,0,1], useFixedBase = False) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,0.93399],[0,0,0,1], useFixedBase = False) 
+# robot_id = p.loadURDF("../model/urdf/digit_model.urdf",[0,0,10],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit_model_closed.urdf",[0,0,10],[0,0,0,1], useFixedBase = False) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3.urdf", [0,0,3],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zerofriction.urdf", [0,0,1],[0,0,0,1], useFixedBase = False) 
+robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,0.93399],[0,0,0,1], useFixedBase = False) 
 
 ###### Setup for Joints #######
 nJoints = p.getNumJoints(robot_id) 

@@ -18,9 +18,9 @@ contactbreakingthreshold=0.02
 contactprocessingthreshold = 0.005
 p.setDefaultContactERP(contacterp)
 p.setPhysicsEngineParameter(contactBreakingThreshold=contactbreakingthreshold)
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zerofriction.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zerofriction.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
 
 
 ###### Setup for Joints #######
@@ -63,14 +63,14 @@ for i in range(nJoints):
 ###### Logging #######
 cnt = 0
 extension = '.csv';file_number_ch = 1
-logFile_checkJoints = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/'}{'pd-'}{file_number_ch}{extension}"
+logFile_checkJoints = f"{'../data/'}{'pd-'}{file_number_ch}{extension}"
     
 # logFile = f"{'erp-'}{contacterp}{'-'}{base_name}{timestep}{'hz'}{'-backdrop-'}{'thres-'}{contactbreakingthreshold}{'-'}{'process-'}{contactprocessingthreshold}{'-'}{file_number}{extension}"
 # logFile = f"{base_name}{timestep}{'hz-'}{'erp-'}{contacterp}{'-'}{file_number}{extension}"
 
 while os.path.isfile(logFile_checkJoints):
     file_number_ch += 1
-    logFile_checkJoints = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/'}{'pd-'}{file_number_ch}{extension}"
+    logFile_checkJoints = f"{'../data/'}{'pd-'}{file_number_ch}{extension}"
     
     
     
@@ -92,7 +92,7 @@ cid4= p.createConstraint(robot_id, right_heel_spring, robot_id, right_ach2, p.JO
 cid5= p.createConstraint(robot_id, right_toe_roll, robot_id, right_A2, p.JOINT_POINT2POINT, [0, 0, 1], [0.0179, 0.009551, -0.054164], [0.188700873535645, -0.031025632095949, 0.001961040077076])
 cid6= p.createConstraint(robot_id, right_toe_roll, robot_id, right_B2, p.JOINT_POINT2POINT, [0, 0, 1], [-0.0181, 0.009551, -0.054164], [0.164841711315360, 0.030867345479882, -0.002471140022936])
 
-filename = '/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/checkJoints-9.csv'
+filename = '../data/checkJoints-9.csv'
 # filename = 'euler-Joints-4.csv'
 
 row_lists = []

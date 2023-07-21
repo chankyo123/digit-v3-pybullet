@@ -21,13 +21,13 @@ contactbreakingthreshold=0.02
 contactprocessingthreshold = 0.005
 p.setDefaultContactERP(contacterp)
 p.setPhysicsEngineParameter(contactBreakingThreshold=contactbreakingthreshold)
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3.urdf",[0,0,1.5],[0,0,0,1],useFixedBase = True)
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zerofriction.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3.urdf",[0,0,1.5],[0,0,0,1],useFixedBase = True)
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zerofriction.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-left.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-right.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-left.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-right.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True) 
 
 
 ####### Setup for Joints #######
@@ -77,14 +77,14 @@ extension = '.csv';file_number = 1;file_number_ch = 1
 save_torque = True
 
 if save_torque:
-    logFile_checkJoints = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/'}{'checkJoints-'}{file_number_ch}{extension}"
+    logFile_checkJoints = f"{'../data/'}{'checkJoints-'}{file_number_ch}{extension}"
     
 # logFile = f"{'erp-'}{contacterp}{'-'}{base_name}{timestep}{'hz'}{'-backdrop-'}{'thres-'}{contactbreakingthreshold}{'-'}{'process-'}{contactprocessingthreshold}{'-'}{file_number}{extension}"
 # logFile = f"{base_name}{timestep}{'hz-'}{'erp-'}{contacterp}{'-'}{file_number}{extension}"
 
 while os.path.isfile(logFile_checkJoints):
     file_number_ch += 1
-    logFile_checkJoints = f"{'/Users/ckkim/Chankyo Kim/Michigan/pybullet/data/'}{'checkJoints-'}{file_number_ch}{extension}"
+    logFile_checkJoints = f"{'../data/'}{'checkJoints-'}{file_number_ch}{extension}"
 
 ####### MassMatrix #######
 print("nJoints: ")

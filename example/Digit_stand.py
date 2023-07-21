@@ -21,9 +21,9 @@ contactprocessingthreshold = 0.005
 p.setDefaultContactERP(contacterp)
 p.setPhysicsEngineParameter(contactBreakingThreshold=contactbreakingthreshold)
 urdfFlags = p.URDF_USE_SELF_COLLISION_EXCLUDE_ALL_PARENTS
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
-# robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
-robot_id = p.loadURDF("/Users/ckkim/Chankyo Kim/Michigan/pybullet/model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,0.93399],[0,0,0,1], useFixedBase = False) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
+# robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed-zeromotor.urdf", [0,0,1.5],[0,0,0,1], useFixedBase = True, flags=urdfFlags) 
+robot_id = p.loadURDF("../model/urdf/digit-v3/digit-v3-armfixed.urdf", [0,0,0.93399],[0,0,0,1], useFixedBase = False) 
 
 
 ####### Setup for Joints #######
