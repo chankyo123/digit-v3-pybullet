@@ -79,7 +79,7 @@ while(1):
         
     ####### Get Contact Data > #######
     contact = p.getContactPoints(robot_id)
-    array_contact = np.array(contact)
+    array_contact = np.array(contact,dtype=object)
     
     if(contact):
     # while( cnt < 4 ):
@@ -100,5 +100,3 @@ while(1):
     p.stepSimulation()
     # cnt = cnt + 1
     # time.sleep(.01)
-    
-    
